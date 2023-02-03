@@ -5,8 +5,8 @@ using UnityEngine;
 public class move_ball : MonoBehaviour
 {
     Rigidbody2D rb;
-    Vector2 force;
-    public AudioClip[] audio;
+    public Vector2 force;
+    public AudioClip[] audios;
 
     void modify_physics(Rigidbody2D rb)
     {
@@ -24,25 +24,24 @@ public class move_ball : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Active the balls!");
+        Debug.Log("Active the Ball!");
         rb = gameObject.GetComponent<Rigidbody2D>();
-        force = new Vector2(20, 20);// this is a Vector provide by Sumin
-        rb.AddForce(force, ForceMode2D.Impulse);
-        rb.GetComponent<AudioSource>().clip = audio[0];
-        rb.GetComponent<AudioSource>().volume = 0.3f;
-        rb.GetComponent<AudioSource>().Play();
+        // force = new Vector2(3, 10);// this is a Vector provide by Sumin
     }
 
     void Update()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         modify_physics(rb);
+        if (force.x != 0 && force.y != 0)
+        {
+            rb.AddForce(force, ForceMode2D.Impulse);
+            rb.GetComponent<AudioSource>().Play();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        rb.GetComponent<AudioSource>().clip = audio[1];
-        rb.GetComponent<AudioSource>().volume = 1;
         this.GetComponent<AudioSource>().Play();
     }
 }
