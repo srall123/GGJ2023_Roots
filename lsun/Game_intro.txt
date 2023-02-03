@@ -1,0 +1,9 @@
+﻿Roll to root
+
+
+
+
+Our game “Roll to root” is inspired by the French petanque, but with a twist. There will be two players, each starting with three balls, which they must shoot as close as possible to the reference point, referred to as the "roots". In addition to traditional petanque rules, our game also introduces the concepts of parent balls and children balls. In each round of play, each player selects one of their balls to serve as the parent ball. They then have the option to place two children balls next to the parent ball. Players can use these children's balls to move their own ball closer to the roots or push their opponent's ball further away. The final score is calculated based on the average distance from all the balls of each player to the roots. 
+
+
+The theme of roots runs deep in this game. The reference point serves as the foundation or anchor. The placement of the parent ball and the growth of the children balls symbolize the spreading of roots, representing growth and expansion. The competition between players to get their balls as close as possible to the roots is akin to the struggle for humankind to gain dominance or superiority, similar to the competition between plant roots for nutrients and resources.
