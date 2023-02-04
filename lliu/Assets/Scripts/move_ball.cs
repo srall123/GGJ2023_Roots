@@ -26,18 +26,19 @@ public class move_ball : MonoBehaviour
     {
         Debug.Log("Active the Ball!");
         rb = gameObject.GetComponent<Rigidbody2D>();
-        // force = new Vector2(3, 10);// this is a Vector provide by Sumin
+        force = new Vector2(3, 10);// this is a Vector provide by Sumin
+        rb.AddForce(force, ForceMode2D.Impulse);
     }
 
     void Update()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         modify_physics(rb);
-        if (force.x != 0 && force.y != 0)
-        {
-            rb.AddForce(force, ForceMode2D.Impulse);
-            rb.GetComponent<AudioSource>().Play();
-        }
+        // if (force.x != 0 || force.y != 0)
+        // {
+        //     rb.AddForce(force, ForceMode2D.Impulse);
+        //     rb.GetComponent<AudioSource>().Play();
+        // }
     }
 
     void OnCollisionEnter2D(Collision2D other)
