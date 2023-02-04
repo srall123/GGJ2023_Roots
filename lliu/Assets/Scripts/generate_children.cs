@@ -6,48 +6,54 @@ public class generate_children : MonoBehaviour
 {
 	public GameObject range;
 	public GameObject space;
-	public GameObject child;
-	public GameObject child2;
-	private int i;
-	public GameObject Player;
-	GameObject[] player_parents;
-	GameObject[] ranges;
-	GameObject[] spaces;
+	public GameObject childen1;
+	public GameObject childen2;
+	int i;
+	public GameObject player;
+	public GameObject[] player_parents;
+	public GameObject[] ranges;
+	public GameObject[] spaces;
+	GameObject[] player1;
+	GameObject[] player2;
+	GameObject[] children1;
+	GameObject[] children2;
 	bool player_range_generated;
 	bool children_chosen;
-	GameObject current_player;
+	public GameObject current_player;
 	bool valid_hit;
+	bool all_stop;
 
-
-    // Start is called before the first frame update
     void Start()
     {
 		player_range_generated = false;
-		children_chosen = false;
 		i = 0;
+		all_stop = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-		if (Player.GetComponent<player>().start_shot == true)
+		if (player.GetComponent<player>().all_parent_generated == true)
 		{
 			if (i < 4)
 			{
-				if (player_range_generated == false && children_chosen == false)
+				if (player_range_generated == false)
 				{
-					if (i % 2 != 0)
+					if (i % 2 == 1)
 						player_parents = GameObject.FindGameObjectsWithTag("Player1");
 					else
 						player_parents = GameObject.FindGameObjectsWithTag("Player2");
-					foreach (GameObject parent in player_parents)
+					check_stop();
+					if (all_stop)
 					{
-						Instantiate(range, parent.transform.position, Quaternion.identity);
-						Instantiate(space, parent.transform.position, Quaternion.identity);
+						foreach (GameObject parent in player_parents)
+						{
+							Instantiate(range, parent.transform.position, Quaternion.identity);
+							Instantiate(space, parent.transform.position, Quaternion.identity);
+						}
+						player_range_generated = true;
 					}
-					player_range_generated = true;
-					children_chosen = true;
-					Player.GetComponent<player>().start_shot = false;
+					else
+						all_stop = true;
 				}
 				if (player_range_generated == true)
 				{
@@ -66,12 +72,10 @@ public class generate_children : MonoBehaviour
 							}
 							if (valid_hit == true)
 							{
-								Debug.Log("test");
-								if (i % 2 != 0)
-									current_player = Instantiate(child, hit[0].point, Quaternion.identity);
+								if (i % 2 == 1)
+									current_player = Instantiate(childen1, hit[0].point, Quaternion.identity);
 								else
-									current_player = Instantiate(child2, hit[0].point, Quaternion.identity);
-								Player.GetComponent<player>().start_shot = false;
+									current_player = Instantiate(childen2, hit[0].point, Quaternion.identity);
 								ranges = GameObject.FindGameObjectsWithTag("Range");
 								spaces = GameObject.FindGameObjectsWithTag("Space");
 								foreach (GameObject range in ranges)
@@ -79,23 +83,53 @@ public class generate_children : MonoBehaviour
 								foreach (GameObject space in spaces)
 									Destroy(space);
 								player_range_generated = false;
+								i++;
+								Debug.Log(i);
 							}
 						}
 					}
 				}
-				if (children_chosen == true && player_range_generated == false)
-				{
-					if (Mathf.Abs(current_player.GetComponent<Rigidbody2D>().velocity.x) + Mathf.Abs(current_player.GetComponent<Rigidbody2D>().velocity.y) < 0.01)
-						Player.GetComponent<player>().start_shot = true;
-					children_chosen = false;
-					i++;
-				}
-				Debug.Log(i);
-				Debug.Log(Player.GetComponent<player>().start_shot);
 			}
-			if ( i == 4 && Player.GetComponent<player>().start_shot == true)
-				Player.GetComponent<player>().end_game = true;
+			else if ( i == 4)
+			{
+				check_stop();
+				if (all_stop)
+					player.GetComponent<player>().end_game = true;
+				else
+					all_stop = true;
+			}
 		}
 	}
+
+    void check_stop()
+	{
+        player1 = GameObject.FindGameObjectsWithTag("Player1");
+		player2 = GameObject.FindGameObjectsWithTag("Player2");
+        children1 = GameObject.FindGameObjectsWithTag("Children1");
+		children2 = GameObject.FindGameObjectsWithTag("Children2");
+
+		foreach (GameObject ball1 in player1)
+		{
+			if (ball1.GetComponent<Rigidbody2D>().velocity.magnitude > 0.01f)
+				all_stop = false;
+		}
+		foreach (GameObject balls2 in children1)
+		{
+			if (balls2.GetComponent<Rigidbody2D>().velocity.magnitude > 0.01f)
+				all_stop = false;
+		}
+
+		foreach (GameObject child1 in player2)
+		{
+			if (child1.GetComponent<Rigidbody2D>().velocity.magnitude > 0.01f)
+				all_stop = false;
+		}
+		foreach (GameObject child2 in children2)
+		{
+			if (child2.GetComponent<Rigidbody2D>().velocity.magnitude > 0.01f)
+				all_stop = false;
+		}
+	}
+
 }
 
