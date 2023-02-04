@@ -1,0 +1,25 @@
+"Roll to Root" Game Manual
+
+Objective: Get your balls as close as possible to the reference point (roots) with the final score based on average distance of all balls to roots.
+
+Number of Players: 2
+
+Equipment: 1 reference point (roots), parents balls (3 each) and children's ball (2 each)
+
+Setup:
+
+Each player starts with three balls.
+Reference point (roots) is positioned in the playing area.
+Players take turns shooting their balls.
+After all balls are shot, select one as the "parent ball" and place two "children balls" next to it.
+Use children balls to move your own ball closer or push opponent's ball further away.
+Gameplay:
+
+Final score is based on average distance of all balls to roots.
+Lowest score wins round.
+Controls:
+
+Space bar to control shooting strength.
+Mouse to adjust shooting direction.
+Click to add children.
+Enjoy the game!
