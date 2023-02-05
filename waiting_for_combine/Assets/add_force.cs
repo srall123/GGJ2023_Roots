@@ -29,6 +29,7 @@ public class add_force : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         force = user_input.GetComponent<user_input>().firePos.up * user_input.GetComponent<user_input>().currentForce;// this is a Vector provide by Sumin
         rb.AddForce(force, ForceMode2D.Impulse);
+        this.GetComponent<AudioSource>().Play();
     }
 
     void Update()
