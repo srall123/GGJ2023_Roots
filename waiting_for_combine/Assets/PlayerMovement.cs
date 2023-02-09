@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		Debug.Log(Ballangle());
+		// Debug.Log(Ballangle());
 		float arrowAngle= Ballangle();
 		arrow.transform.eulerAngles = new Vector3 (arrow.transform.position.x, arrow.transform.position.y, arrowAngle);
 	}
