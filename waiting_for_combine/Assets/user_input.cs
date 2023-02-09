@@ -82,8 +82,6 @@ public class user_input : MonoBehaviour
 	private void Fire()
 	{
 		fired = true;
-		currentForce = minForce;
-		powerSlider.value = currentForce;
 		fired = false;
 	}
 }
