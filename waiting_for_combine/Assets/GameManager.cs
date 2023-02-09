@@ -9,17 +9,23 @@ public class GameManager : MonoBehaviour
 
 	public Text scoreText_player1;
 	public Text scoreText_player2;
+	public Text score_player1;
+	public Text score_player2;
 	GameObject root;
 	GameObject[] player1s;
 	GameObject[] player2s;
+	GameObject[] children1;
+	GameObject[] children2;
 	float totalDistance_player1;
 	float averageDistance_player1;
 	float totalDistance_player2;
 	float averageDistance_player2;
 	public int scale;
-	public Text draw;
-	public Text winner1;
-	public Text winner2;
+	public GameObject draw;
+	public GameObject winner1;
+	public GameObject winner2;
+	public GameObject endgame;
+
 
 
 	public void score_calculator(int player)
@@ -33,7 +39,12 @@ public class GameManager : MonoBehaviour
 			{
 				totalDistance_player1 += Vector3.Distance(root.transform.position, player1.transform.position);
 			}
-			averageDistance_player1 = totalDistance_player1 / player1s.Length * scale;
+			children1 = GameObject.FindGameObjectsWithTag("Children1");
+			foreach (GameObject child1 in children1)
+			{
+				totalDistance_player1 += Vector3.Distance(root.transform.position, child1.transform.position);
+			}
+			averageDistance_player1 = totalDistance_player1 / (player1s.Length + children1.Length) * scale;
 			scoreText_player1.text = averageDistance_player1.ToString("0");
 		}
 		if (player == 2)
@@ -44,7 +55,12 @@ public class GameManager : MonoBehaviour
 			{
 				totalDistance_player2 += Vector3.Distance(root.transform.position, player2.transform.position);
 			}
-			averageDistance_player2 = totalDistance_player2 / player2s.Length * scale;
+			children2 = GameObject.FindGameObjectsWithTag("Children2");
+			foreach (GameObject child2 in children2)
+			{
+				totalDistance_player2 += Vector3.Distance(root.transform.position, child2.transform.position);
+			}
+			averageDistance_player2 = totalDistance_player2 / (player2s.Length + children2.Length) * scale;
 			scoreText_player2.text = averageDistance_player2.ToString("0");
 
 		}
@@ -57,17 +73,25 @@ public class GameManager : MonoBehaviour
 
 	public void EndGame()
 	{
+		// SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		endgame.SetActive(true);
+
 		if (averageDistance_player1 == averageDistance_player2)
 			draw.gameObject.SetActive(true);
-		else if (averageDistance_player1 > averageDistance_player2)
+		else if (averageDistance_player1 < averageDistance_player2)
 			winner1.gameObject.SetActive(true);
 		else
 			winner2.gameObject.SetActive(true);
+		score_player1.text = averageDistance_player1.ToString("0");
+		score_player2.text = averageDistance_player2.ToString("0");
+
+		
 	}
 
 	public void Restart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+		endgame.SetActive(false);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void QuitGame()
